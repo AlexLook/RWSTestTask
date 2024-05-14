@@ -14,12 +14,12 @@ public class Section : IEquatable<Section> {
     /// <summary>
     /// Граница участка 1
     /// </summary>
-    public SchemePoint Point1 { get; }
+    public StationPoint Point1 { get; }
 
     /// <summary>
     /// Граница участка 2
     /// </summary>
-    public SchemePoint Point2 { get; }
+    public StationPoint Point2 { get; }
 
     /// <summary>
     /// Наименование
@@ -32,7 +32,7 @@ public class Section : IEquatable<Section> {
     /// <param name="point1">Точка границы 1</param>
     /// <param name="point2">Точка границы 2</param>
     /// <param name="name">Наименование участка</param>
-    public Section(SchemePoint point1, SchemePoint point2, string name) {
+    public Section(StationPoint point1, StationPoint point2, string name) {
         Point1 = point1;
         Point2 = point2;
         Name   = name;
@@ -43,7 +43,7 @@ public class Section : IEquatable<Section> {
     /// </summary>
     /// <param name="point1">Точка границы 1</param>
     /// <param name="point2">Точка границы 2</param>
-    public Section(SchemePoint point1, SchemePoint point2)
+    public Section(StationPoint point1, StationPoint point2)
         : this(point1, point2, $"S_{point1.Name}_{point2.Name}") { }
 
     /// <summary>

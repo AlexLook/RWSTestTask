@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,11 @@ public class RailwayStation {
     public string Name { get; }
 
     /// <summary>
+    /// Точки станции
+    /// </summary>
+    public List<StationPoint> StationPoints { get; }
+
+    /// <summary>
     /// Участки
     /// </summary>
     public List<Section> Sections { get; }
@@ -27,7 +32,7 @@ public class RailwayStation {
     public List<Yard> Yards { get; }
 
     /// <summary>
-    /// Пути стнции (все, как входящие в парки, так и нет)
+    /// Пути станции (все, как входящие в парки, так и нет)
     /// </summary>
     public List<Track> Tracks { get; }
 
@@ -36,7 +41,38 @@ public class RailwayStation {
     /// </summary>
     /// <param name="name">Наименование станции</param>
     public RailwayStation(string name) {
-        Name = name;
+        Name            = name;
+        StationPoints   = new List<StationPoint>();
+        Sections        = new List<Section>();
+        Yards           = new List<Yard>();
+        Tracks          = new List<Track>();
+    }
+
+    /// <summary>
+    /// Добавить точку
+    /// </summary>
+    /// <param name="point">Точка</param>
+    public void AddPoint(StationPoint point) {
+        StationPoints.Add(point);
+    }
+
+    /// <summary>
+    /// Добавить точку
+    /// </summary>
+    /// <param name="x">Координата X</param>
+    /// <param name="y">Координата Y</param>
+    /// <param name="name">Наименование точки</param>
+    public void AddPoint(double x, double y, string name) {
+        StationPoints.Add(new StationPoint(x, y, name));
+    }
+
+    /// <summary>
+    /// Поиск точки
+    /// </summary>
+    /// <param name="pointName">Имя точки</param>
+    /// <returns>Станционная точка</returns>
+    public StationPoint? FindPoint(string pointName) {
+        return StationPoints.Find(p => p.Name.Equals(pointName, StringComparison.Ordinal));
     }
 
     /// <summary>
@@ -46,6 +82,12 @@ public class RailwayStation {
     public void AddSection(Section section) {
         if (!Sections.Contains(section)) {
             Sections.Add(section);
+
+            AddPoint(section.Point1);
+            AddPoint(section.Point2);
+
+            section.Point1.AddSection(section);
+            section.Point2.AddSection(section);
         }
     }
 

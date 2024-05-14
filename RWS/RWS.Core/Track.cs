@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,5 +73,5 @@ public class Track : IEquatable<Track> {
         return Equals(otherTrack);
     }
 
-    public bool Equals(Track other) => this.Name.Equals(other.Name);
+    public bool Equals(Track other) => this.Name.Equals(other.Name, StringComparison.Ordinal);
 }

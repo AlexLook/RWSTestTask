@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,8 @@ public class Yard : IEquatable<Yard>{
     /// </summary>
     /// <param name="name">Наименование парка</param>
     public Yard(string name) {
-        Name = name;
+        Name   = name;
+        Tracks = new List<Track>();
     }
 
     /// <summary>
@@ -56,5 +57,5 @@ public class Yard : IEquatable<Yard>{
         return Equals(otherYard);
     }
 
-    public bool Equals(Yard other) => this.Name.Equals(other.Name);
+    public bool Equals(Yard other) => this.Name.Equals(other.Name, StringComparison.Ordinal);
 }
