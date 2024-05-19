@@ -76,7 +76,7 @@ csharp_style_prefer_switch_expression = true:suggestion
 csharp_style_prefer_pattern_matching = true:suggestion
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:warning
-csharp_prefer_braces = true:warning
+csharp_prefer_braces = true:none
 csharp_prefer_simple_using_statement = true:warning
 csharp_using_directive_placement = outside_namespace:suggestion
 dotnet_sort_system_directives_first = false
@@ -208,3 +208,9 @@ dotnet_naming_symbols.all_members.applicable_kinds = *
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 
 dotnet_diagnostic.CA1051.severity = error
+
+# IDE0011: Добавить фигурные скобки
+dotnet_diagnostic.IDE0011.severity = none
+
+# IDE0055: Исправить форматирование
+dotnet_diagnostic.IDE0055.severity = silent

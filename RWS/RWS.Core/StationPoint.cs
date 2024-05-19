@@ -5,7 +5,9 @@ namespace RWS.Core;
 /// <summary>
 /// Точка схемы станции (точки начала и конца секций)
 /// </summary>
-// Такое имя выбрано для избегания конфликта с типом Point из  библиотеки .Net
+/// <remarks>
+/// Такое имя выбрано для избегания конфликта с типом Point из  библиотеки .Net
+/// </remarks>
 public class StationPoint : IEquatable<StationPoint> {
 
     /// <summary>
@@ -42,7 +44,9 @@ public class StationPoint : IEquatable<StationPoint> {
     }
 
     public override int GetHashCode()
-        => HashCode.Combine<int, int, int>(X.GetHashCode(), Y.GetHashCode(), Name.GetHashCode());
+        => HashCode.Combine<int, int, int>(X.GetHashCode(),
+                                           Y.GetHashCode(),
+                                           Name.GetHashCode());
 
     public override bool Equals(object? other) {
         if (other == null) {
@@ -56,11 +60,15 @@ public class StationPoint : IEquatable<StationPoint> {
         return Equals(otherPoint);
     }
 
-    public bool Equals(StationPoint other) =>   this.X == other.X
-                                             && this.Y == other.Y
-                                             && this.Name.Equals(other.Name);
+    public bool Equals(StationPoint? other) {
+        if (other == null) return false;
 
-    public override string ToString() =>  Name;
+        return    this.X == other.X
+               && this.Y == other.Y
+               && this.Name.Equals(other.Name);
+    }
+
+    public override string ToString() => $"{Name}({X}:{Y})";
 
     /// <summary>
     /// Добавить участок

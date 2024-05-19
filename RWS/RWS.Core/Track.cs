@@ -57,7 +57,7 @@ public class Track : IEquatable<Track> {
         }
     }
 
-    public override string ToString() => $"Путь: {Name}";
+    public override string ToString() => Name;
 
     public override int GetHashCode() => Name.GetHashCode();
 
@@ -73,5 +73,9 @@ public class Track : IEquatable<Track> {
         return Equals(otherTrack);
     }
 
-    public bool Equals(Track other) => this.Name.Equals(other.Name, StringComparison.Ordinal);
+    public bool Equals(Track? other) {
+        if (other == null) return false;
+
+        return this.Name.Equals(other.Name, StringComparison.Ordinal);
+    }
 }

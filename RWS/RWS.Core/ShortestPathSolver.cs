@@ -9,7 +9,7 @@ namespace RWS.Core;
 /// <summary>
 /// Класс для поиска кратчайшего пути на станции (алгоритм Дейкстры)
 /// </summary>
-internal class ShortestPathSolver {
+public class ShortestPathSolver {
 
     private readonly RailwayStation station;
 
@@ -66,8 +66,10 @@ internal class ShortestPathSolver {
     /// <param name="startPointName">Имя начальной точки</param>
     /// <param name="finishPointName">Имя конечной точки</param>
     /// <returns>Список участков</returns>
-    public List<Section> FindShortestPath(string startPointName, string finishPointName) {
-        return FindShortestPath(station.FindPoint(startPointName), station.FindPoint(finishPointName));
+    public Section[] FindShortestPath(string startPointName,
+                                      string finishPointName) {
+        return FindShortestPath(station.FindPoint(startPointName),
+                                station.FindPoint(finishPointName));
     }
 
     /// <summary>
@@ -76,7 +78,7 @@ internal class ShortestPathSolver {
     /// <param name="startPoint">Начальная точка</param>
     /// <param name="finishPoint">Конечная точка</param>
     /// <returns>Список участков</returns>
-    public List<Section> FindShortestPath(StationPoint startPoint, StationPoint finishPoint) {
+    public Section[] FindShortestPath(StationPoint startPoint, StationPoint finishPoint) {
         InitInfo();
         var first = GetStationPointInfo(startPoint);
         first.LengthsSum = 0;
@@ -88,7 +90,7 @@ internal class ShortestPathSolver {
             SetSumToNextPoint(current);
         }
 
-        return GetPath(startPoint, finishPoint);
+        return GetPath(startPoint, finishPoint).ToArray();
     }
 
     /// <summary>

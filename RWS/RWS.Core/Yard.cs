@@ -41,7 +41,7 @@ public class Yard : IEquatable<Yard>{
         }
     }
 
-    public override string ToString() => $"Парк: {Name}";
+    public override string ToString() => Name;
 
     public override int GetHashCode() => Name.GetHashCode();
 
@@ -57,5 +57,9 @@ public class Yard : IEquatable<Yard>{
         return Equals(otherYard);
     }
 
-    public bool Equals(Yard other) => this.Name.Equals(other.Name, StringComparison.Ordinal);
+    public bool Equals(Yard? other) {
+        if (other == null) return false;
+
+        return this.Name.Equals(other.Name, StringComparison.Ordinal);
+    }
 }

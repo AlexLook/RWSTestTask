@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,7 +52,7 @@ public class Section : IEquatable<Section> {
     public double Length
         => Math.Sqrt(Math.Pow(Point2.X - Point1.X, 2) + Math.Pow(Point2.Y - Point1.Y, 2));
 
-    public override string ToString() => $"Участок: {Name}";
+    public override string ToString() => Name;
 
     public override int GetHashCode()
         => HashCode.Combine<int, int>(Point1.GetHashCode(), Point2.GetHashCode());
@@ -69,7 +69,10 @@ public class Section : IEquatable<Section> {
         return Equals(otherSection);
     }
 
-    public bool Equals(Section other)
-        =>    (this.Point1 == other.Point1 || this.Point1 == other.Point2)
-           && (this.Point2 == other.Point1 || this.Point2 == other.Point2);
+    public bool Equals(Section? other) {
+       if (other == null) return false;
+
+        return    (this.Point1 == other.Point1 || this.Point1 == other.Point2)
+               && (this.Point2 == other.Point1 || this.Point2 == other.Point2);
+    }
 }
