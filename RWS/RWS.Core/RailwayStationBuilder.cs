@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
-
 namespace RWS.Core;
 
 /// <summary>
@@ -48,7 +40,11 @@ public class RailwayStationBuilder {
         var point25   = new StationPoint(28,  7, "P25");
         var point26   = new StationPoint(17,  4, "P26");
         var point27   = new StationPoint(21,  4, "P27");
-        
+
+        var point28   = new StationPoint(34, 25, "P28");
+        var point29   = new StationPoint(34, 22, "P29");
+        var point30   = new StationPoint(34, 19, "P30");
+
         // Объявляем участки
         var section1  = new Section( point1,  point2,  "S1");
         var section2  = new Section( point2,  point3,  "S2");
@@ -83,6 +79,9 @@ public class RailwayStationBuilder {
         var section31 = new Section(point20, point26, "S31");
         var section32 = new Section(point26, point27, "S32");
         var section33 = new Section(point27, point24, "S33");
+
+        var section34 = new Section(point28, point29, "S34");
+        var section35 = new Section(point29, point30, "S35");
 
         // Объявляем пути
         var track1 = new Track(new Section[] {  section2,  section3,  section4,  section5,  section6 }, "Путь 1");
@@ -130,6 +129,9 @@ public class RailwayStationBuilder {
         station.AddSection(section31);
         station.AddSection(section32);
         station.AddSection(section33);
+
+        station.AddSection(section34);
+        station.AddSection(section35);
 
         // Добавляем пути к станции
         station.AddTrack(track1);

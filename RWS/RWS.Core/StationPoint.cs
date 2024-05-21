@@ -1,5 +1,3 @@
-using System;
-
 namespace RWS.Core;
 
 /// <summary>

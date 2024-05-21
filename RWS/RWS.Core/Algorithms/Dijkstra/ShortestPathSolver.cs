@@ -1,4 +1,4 @@
-﻿using RWS.Core.Algorithms.Dijkstra.Pathing;
+using RWS.Core.Algorithms.Dijkstra.Pathing;
 using System;
 using System.Collections.Generic;
 using System.Linq;

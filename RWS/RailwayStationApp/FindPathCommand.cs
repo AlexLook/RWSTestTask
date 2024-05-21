@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Spectre.Console;
 
 using RWS.Core;
 using RWS.Core.Algorithms.Dijkstra;
+using RWS.Core.Algorithms.Dijkstra.Exceptions;
 
 namespace RWS;
 
@@ -23,20 +18,27 @@ internal class FindPathCommand : IFindPathCommand {
 
     private readonly IRepository repository;
 
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    /// <param name="repository">Репозиторий станции</param>
     public FindPathCommand(IRepository repository) {
         this.repository = repository;
     }
 
+    /// <summary>
+    /// Выполнение команды
+    /// </summary>
     public void Execute() {
         try {
             var station = repository.GetRailwayStation();
 
-            var sectionStartName  = AnsiConsole.Ask<string>("Введите начальный участок:");
+            var sectionStartName = AnsiConsole.Ask<string>("Введите начальный участок:");
             var sectionFinishName = AnsiConsole.Ask<string>("Введите конечный участок:");
 
             AnsiConsole.WriteLine("Путь:");
 
-            var solver      = new ShortestPathSolver(station);
+            var solver = new ShortestPathSolver(station);
             var stationPath = solver.GetShortestPath(sectionStartName, sectionFinishName);
 
             AnsiConsole.WriteLine($"\t Начальный участок : {stationPath.Origin.Name}");
@@ -45,9 +47,10 @@ internal class FindPathCommand : IFindPathCommand {
             foreach (var section in stationPath.Sections) {
                 AnsiConsole.WriteLine($"\t\t {section.Name} ({section.Point1}:{section.Point2})");
             }
+        } catch (PathNotFoundException) {
+            AnsiConsole.MarkupLine($"[red]Пути между участками не существует![/]");
         } catch (Exception ex) {
             AnsiConsole.MarkupLine($"[red]{ex}[/]");
-            throw;
         }
     }
 }

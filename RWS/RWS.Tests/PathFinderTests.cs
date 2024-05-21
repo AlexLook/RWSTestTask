@@ -1,5 +1,6 @@
 using RWS.Core;
 using RWS.Core.Algorithms.Dijkstra;
+using RWS.Core.Algorithms.Dijkstra.Exceptions;
 
 namespace RWS.Tests;
 
@@ -22,30 +23,36 @@ public class PathFinderTests
     [InlineData( "S1",  "S7", "S1-S2-S3-S4-S5-S6-S7")]
     [InlineData( "S7",  "S1", "S7-S6-S5-S4-S3-S2-S1")]
     [InlineData("S22", "S27", "S22-S19-S15-S26-S25-S27")]
-    //[InlineData("B", "C")]
-    //[InlineData("B", "D")]
-    //[InlineData("B", "E")]
-    //[InlineData("C", "A")]
-    //[InlineData("C", "B")]
-    //[InlineData("C", "D")]
-    //[InlineData("C", "E")]
-    //[InlineData("D", "A")]
-    //[InlineData("D", "B")]
-    //[InlineData("D", "C")]
-    //[InlineData("D", "E")]
-    //[InlineData("E", "A")]
-    //[InlineData("E", "B")]
-    //[InlineData("E", "C")]
-    //[InlineData("E", "D")]
-    public void Path_is_found_and_shortest(string originName, string destinationName, string realPath) {
+    [InlineData("S34", "S35", "S34-S35")]
+    public void Path_is_found_and_shortest(string originName,
+                                           string destinationName,
+                                           string realPath) {
         var stationBuilder     = new RailwayStationBuilder();
         var station            = stationBuilder.Build();
         var shortestPathSolver = new ShortestPathSolver(station);
 
-        var stationPath = shortestPathSolver.GetShortestPath(originName, destinationName);
+        var stationPath = shortestPathSolver.GetShortestPath(originName,
+                                                             destinationName);
 
         Assert.Equal(stationPath.Origin.Name,      originName);
         Assert.Equal(stationPath.Destination.Name, destinationName);
         Assert.Equal(stationPath.ToString(),       realPath);
+    }
+
+    /// <summary>
+    /// Проверка выкидывания исключения, если пути нету
+    /// </summary>
+    [Fact]
+    public void Path_not_found_exception() {
+        var stationBuilder     = new RailwayStationBuilder();
+        var station            = stationBuilder.Build();
+        var shortestPathSolver = new ShortestPathSolver(station);
+        var exceptionType      = typeof(PathNotFoundException);
+
+        var exception = Record.Exception(
+            () => shortestPathSolver.GetShortestPath("S34", "S2"));
+
+        Assert.NotNull(exception);
+        Assert.IsType<PathNotFoundException>(exception);
     }
 }

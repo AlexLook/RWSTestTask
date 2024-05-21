@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Spectre.Console;
 
 using RWS.Core;
@@ -18,10 +12,17 @@ internal class ShowStationSchemeCommand : IShowStationSchemeCommand {
 
     private readonly IRepository repository;
 
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    /// <param name="repository">Репозиторий станции</param>
     public ShowStationSchemeCommand(IRepository repository) {
         this.repository = repository;
     }
 
+    /// <summary>
+    /// Выполнение команды
+    /// </summary>
     public void Execute() {
         try {
             var station = repository.GetRailwayStation();
@@ -51,7 +52,6 @@ internal class ShowStationSchemeCommand : IShowStationSchemeCommand {
         }
         catch (Exception ex) {
             AnsiConsole.MarkupLine($"[red]{ex}[/]");
-            throw;
         }
     }
 
